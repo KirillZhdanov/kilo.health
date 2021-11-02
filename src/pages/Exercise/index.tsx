@@ -1,11 +1,5 @@
-import React from 'react'
-
-
+import React from 'react';
 
 export const Exercise = () => {
-    return (
-        <div>
-            Exercise
-        </div>
-    )
-}
+  return <div>Exercise</div>;
+};
