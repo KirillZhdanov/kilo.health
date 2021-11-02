@@ -18,7 +18,7 @@ export const Overview = () => {
 		<div>
 			<p>Day 1</p>
 			<h3>{name}</h3>
-			<p>Easy 15 min No equipment</p>
+			<p>Easy • 15 min • No equipment</p>
 			<br />
 			{questions.map(({ title, exercises }, idx) => (
 				<React.Fragment key={`${title}_${idx}`}>
