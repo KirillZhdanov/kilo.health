@@ -10,7 +10,7 @@ interface Question {
   exercises: Exercise[];
   muscle_group: MuscleGroup;
 }
-interface Exercise {
+export interface Exercise {
   id: number;
   title: string;
   duration: number;

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const StyledLink = styled.a`
+const StartWorkoutButton = styled.a`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,6 +12,24 @@ const StyledLink = styled.a`
   border-radius: 8px;
   text-align: center;
   text-decoration: none;
+  position: fixed;
+  bottom: 32px;
+`;
+const GoBackButton = styled.a`
+  position: absolute;
+  top: 20px;
+  left: 20px;
+`;
+const OverviewPageWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 84px;
+  position: relative;
+  margin-bottom: 32px;
+`;
+const OverviewImage = styled.img`
+  width: 100%;
 `;
 
-export { StyledLink };
+export { StartWorkoutButton, GoBackButton, OverviewPageWrapper, OverviewImage };
