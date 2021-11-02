@@ -34,7 +34,7 @@ export const Overview = () => {
 					))}
 				</React.Fragment>
 			))}
-			<StyledLink as={Link} to="/">
+			<StyledLink as={Link} to="/exercise/1">
 				Start Workout
 			</StyledLink>
 		</div>
