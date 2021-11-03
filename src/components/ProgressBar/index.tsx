@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface Props {
+interface ProgressBarOptions {
   size: number;
   percentage: number;
   lineWidth: number;
@@ -8,7 +8,7 @@ interface Props {
   value: number;
 }
 
-export const ProgressBar = ({ size, percentage, lineWidth, color, value }: Props) => {
+export const ProgressBar = ({ size, percentage, lineWidth, color, value }: ProgressBarOptions) => {
   const radius = (size - lineWidth) / 2;
   const viewBox = `0 0 ${size} ${size}`;
   const dashArray = radius * Math.PI * 2;
@@ -29,7 +29,7 @@ export const ProgressBar = ({ size, percentage, lineWidth, color, value }: Props
           strokeDashoffset: dashOffset,
         }}
       />
-      <text className="circle-text" x="50%" y="50%" dy=".3em" textAnchor="middle" fill={color}>
+      <text className="circle-text" x="50%" y="50%" dy=".3em" textAnchor="middle" fontSize="40px" fill={color}>
         {value}
       </text>
     </svg>

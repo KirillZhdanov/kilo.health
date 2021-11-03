@@ -8,7 +8,16 @@ import {
   GoBackButton,
   StartWorkoutButton,
   OverviewPageWrapper,
+  OverviewPageContainer,
+  OverviewSecondaryText,
   OverviewImage,
+  OverviewTrainingImage,
+  OverviewTrainingSet,
+  OverviewTrainingSetTitle,
+  OverviewTrainingDescription,
+  OverviewTrainingDescriptionTitle,
+  OverviewTrainingExerciseTitle,
+  OverviewTrainingExercise,
 } from '../../components/StyledComponents';
 import { getWorkouts } from '../../redux/selectors';
 import backIcon from '../../assets/backIcon.svg';
@@ -21,30 +30,29 @@ export const Overview = () => {
   }
   return (
     <OverviewPageWrapper>
-      <div>
+      <OverviewPageContainer>
         <GoBackButton as={Link} to="/">
           <img alt="go back" src={backIcon} />
         </GoBackButton>
         <OverviewImage alt="overview main image" src={overviewImage} />
-        <p>Day 1</p>
-        <h3>{name}</h3>
-        <p>Easy • 15 min • No equipment</p>
-        <br />
+        <OverviewSecondaryText>Day 1</OverviewSecondaryText>
+        <OverviewTrainingSetTitle>{name?.toUpperCase()}</OverviewTrainingSetTitle>
+        <OverviewSecondaryText>Easy • 15 min • No equipment</OverviewSecondaryText>
         {questions.map(({ title, exercises }, idx) => (
-          <React.Fragment key={`${title}_${idx}`}>
-            <p>{title}</p>
+          <OverviewTrainingSet key={`${title}_${idx}`}>
+            <OverviewTrainingExerciseTitle>{title}</OverviewTrainingExerciseTitle>
             {exercises.map(({ id, title, photo, description }) => (
-              <div key={id}>
-                <img alt={title} src={photo} />
-                <div>
-                  <p>{title}</p>
-                  <p>{description}</p>
-                </div>
-              </div>
+              <OverviewTrainingExercise key={id}>
+                <OverviewTrainingImage alt={title} src={photo} />
+                <OverviewTrainingDescription>
+                  <OverviewTrainingDescriptionTitle>{title}</OverviewTrainingDescriptionTitle>
+                  <OverviewSecondaryText>{description}</OverviewSecondaryText>
+                </OverviewTrainingDescription>
+              </OverviewTrainingExercise>
             ))}
-          </React.Fragment>
+          </OverviewTrainingSet>
         ))}
-      </div>
+      </OverviewPageContainer>
       <StartWorkoutButton as={Link} to="/exercise/1">
         Start Workout
       </StartWorkoutButton>
