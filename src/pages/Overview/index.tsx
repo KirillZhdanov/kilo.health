@@ -42,14 +42,14 @@ export const Overview = () => {
         {questions.map(({ title, exercises }, idx) => (
           <OverviewTrainingSet key={`${title}_${idx}`}>
             <OverviewTrainingExerciseTitle>{title}</OverviewTrainingExerciseTitle>
-            {exercises.map(({ id, title, photo, description }) => (
+            {exercises.map(({ id, title, photo, duration }) => (
               <OverviewTrainingExercise key={id}>
                 <OverviewTrainingImage className={completedExerciseClassName(id)} alt={title} src={photo} />
                 <OverviewTrainingDescription>
                   <OverviewTrainingDescriptionTitle className={completedExerciseClassName(id)}>
                     {title}
                   </OverviewTrainingDescriptionTitle>
-                  <OverviewSecondaryText>{description}</OverviewSecondaryText>
+                  <OverviewSecondaryText>{duration} sec</OverviewSecondaryText>
                 </OverviewTrainingDescription>
               </OverviewTrainingExercise>
             ))}

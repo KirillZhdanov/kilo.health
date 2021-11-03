@@ -48,7 +48,9 @@ export const Exercise = () => {
   const nextExercise = () => {
     changeCurrentExercise(currentExerciseIndex + 1);
   };
+
   const isCompleted = currentExerciseIndex === exercises.length;
+  const progressBarColors = { getReadyColor: '#1DE9B6', exerciseColor: '#FF4081' };
   React.useEffect(() => {
     !isCompleted && history.replace(`/exercise/${currentExercise.id}`);
   }, [currentExercise, history, isCompleted]);
@@ -92,21 +94,21 @@ export const Exercise = () => {
               <PlayerButtonIcon alt="prev" src={arrowPrev} />
             </PlayerButton>
           ) : (
-            <div></div>
+            <PlayerButton className="hidden"></PlayerButton>
           )}
           <ProgressBar
             size={110}
             value={duration}
             percentage={(duration / currentExercise?.duration) * 100}
             lineWidth={8}
-            color="#FF4081"
+            color={currentExercise?.id ? progressBarColors.exerciseColor : progressBarColors.getReadyColor}
           />
           {currentExerciseIndex !== exercises.length ? (
             <PlayerButton onClick={nextExercise}>
               <PlayerButtonIcon alt="prev" src={arrowNext} />
             </PlayerButton>
           ) : (
-            <div></div>
+            <PlayerButton className="hidden"></PlayerButton>
           )}
         </PlayerControlsContainer>
         <PlayerVideoContainer loaderImageUrl={Spinner}>

@@ -1,6 +1,7 @@
-# Getting Started with Create React App
+# Kilo.Health
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was bootstrapped with [CRA](https://github.com/facebook/create-react-app).
+Please take a look at the entire designs [here](https://www.figma.com/file/KiCMnFPh0I2cEHbWnI2fzz/Excercises-of-a-workout).
 
 ## Available Scripts
 
@@ -39,8 +40,57 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+### `yarn run prepare`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+The scripts installs all the additional libraries and configurations. If you need something to be done before you start working with the all - please put it to the script.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Linter and prettify
+
+### ESLint
+
+[ESLint](https://eslint.org) is provided by standard CRA configuration. The configuration can be changed using your custom `.eslintrc` configuration.
+
+### Prettier
+
+[Prettier](https://prettier.io) is a library that formats all the code in a strict way. The formatting rules are fetched from `.prettierrc.js`.
+
+### Pre-commit hooks
+
+Lint-staged pre-commit hook is used in the application to make sure all the files are formatted correctly. We use that to make sure that all the files are the same for different developers even if some of them has their own IDE configuration.
+
+Commit-msg pre-commit hook is used in the application to make sure that all our commits messages following same pattern. We use that to simplify understanding commits messages for our team.
+
+## State management
+
+### Redux
+
+The application uses [Redux](https://redux.js.org) ecosystem as a state management tool.
+
+### Redux-Saga
+
+The application uses Redux-Saga to process side requests (API calls as an example).
+
+### Files structure of `src` catalog
+- `assets` - contains images
+- `components`
+  - `StyledComponents` - styled components for the application styling. All the styled-components for the Kilo.Health application are placed there because for the small project this decision fits well. If we would need to extend it, styles would be moved directly into the components and pages folders. 
+  - `HOC`
+- `models` - application types
+- `pages`
+- `redux` - redux store with reducers, actions, sagas and selectors
+- `utils` - application utilities
+
+## Special Directories
+
+### assets
+
+The assets directory contains images.
+
+### components
+
+The components directory contains React components. Components make up the different parts of page and can be reused and imported into pages and even other components.
+
+### redux
+
+The core directory contains redux store, included reducers, actions, sagas, services and selectors.
+

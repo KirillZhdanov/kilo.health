@@ -28,7 +28,7 @@ const SaveAndContinueButton = styled.a`
   text-align: center;
   text-decoration: none;
   position: fixed;
-  bottom: 50%;
+  bottom: 40%;
 `;
 
 const GoBackButton = styled.a`
@@ -51,17 +51,20 @@ const OverviewPageContainer = styled.div`
 const OverviewSecondaryText = styled.p`
   font-weight: 400;
   font-size: 14px;
+  margin-top: 10px;
 `;
 const OverviewImage = styled.img`
   width: 100%;
 `;
 const OverviewTrainingSet = styled.div`
   border-top: 1px solid #eeeeee;
+  margin-bottom: 20px;
 `;
 const OverviewTrainingSetTitle = styled.p`
   font-weight: 600;
   font-size: 24px;
   line-height: 6px;
+  margin: 17px 0;
 `;
 const OverviewTrainingExercise = styled.div`
   display: flex;
@@ -74,6 +77,7 @@ const OverviewTrainingExerciseTitle = styled.p`
 const OverviewTrainingImage = styled.img`
   max-width: 64px;
   max-height: 64px;
+  border-radius: 5px;
 `;
 const OverviewTrainingDescription = styled.div`
   margin-left: 16px;
@@ -81,6 +85,7 @@ const OverviewTrainingDescription = styled.div`
 const OverviewTrainingDescriptionTitle = styled.p`
   font-weight: 600;
   font-size: 20px;
+  margin-bottom: 0;
 `;
 const PlayerControlPanel = styled.div`
   display: flex;
@@ -137,6 +142,16 @@ const PlayerControlsContainer = styled.div`
   justify-content: space-between;
   align-items: center;
 `;
+const WorkoutCompleteTitle = styled.p`
+  font-weight: 600;
+  font-size: 40px;
+`;
+const WorkoutCompleteSecondaryText = styled.p`
+  font-weight: 400;
+  font-size: 20px;
+  color: #222222;
+  opacity: 0.6;
+`;
 
 export {
   StartWorkoutButton,
@@ -162,4 +177,6 @@ export {
   PlayerButton,
   PlayerControlsContainer,
   BackButtonContainer,
+  WorkoutCompleteTitle,
+  WorkoutCompleteSecondaryText,
 };

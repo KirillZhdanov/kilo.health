@@ -24,3 +24,6 @@
   filter: grayscale(1);
   text-decoration: line-through;
 }
+.hidden{
+  visibility: hidden;
+}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { Exercise } from '../../models';
-import { setExerciseCompleted } from '../../redux/actions';
+import { Exercise } from '../../../models';
+import { setExerciseCompleted } from '../../../redux/actions';
 
 interface TrainingExercises {
   exercises: Exercise[];
