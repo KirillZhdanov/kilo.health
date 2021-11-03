@@ -22,7 +22,7 @@ import Spinner from './../../assets/Spinner.gif';
 import { Workout } from '../../models';
 import { RootState } from '../../redux/store';
 import { getWorkouts } from '../../redux/selectors';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useTraining } from '../../components';
 
@@ -39,6 +39,7 @@ export const Exercise = () => {
   const pauseTraining = () => {
     if (isSuspended) return;
     setIsPaused(!isPaused);
+    if (!!isErrorOnLoad) return;
     isPaused ? trainingVideo.current?.play() : trainingVideo.current?.pause();
   };
   const prevExercise = () => {
@@ -47,21 +48,20 @@ export const Exercise = () => {
   const nextExercise = () => {
     changeCurrentExercise(currentExerciseIndex + 1);
   };
+  const isCompleted = currentExerciseIndex === exercises.length;
   React.useEffect(() => {
-    history.replace(`/exercise/${currentExercise.id}`);
-  }, [currentExercise, history]);
+    !isCompleted && history.replace(`/exercise/${currentExercise.id}`);
+  }, [currentExercise, history, isCompleted]);
 
   const suspendHandler = React.useCallback(
     (suspend: boolean) => {
-      if (isErrorOnLoad) {
-        setIsSuspended(false);
-        setIsPaused(false);
-        return;
+      if (suspend) {
+        setIsErrorOnLoad(false);
       }
       setIsSuspended(suspend);
       setIsPaused(suspend);
     },
-    [setIsPaused, isErrorOnLoad],
+    [setIsPaused],
   );
   React.useEffect(() => {
     if (isErrorOnLoad) {
@@ -72,6 +72,9 @@ export const Exercise = () => {
 
   if (!loaded) {
     return <Loading />;
+  }
+  if (currentExerciseIndex === exercises.length) {
+    return <Redirect to="/completed" />;
   }
 
   return (
@@ -109,7 +112,7 @@ export const Exercise = () => {
         <PlayerVideoContainer loaderImageUrl={Spinner}>
           <PlayerVideo
             src={currentExercise?.video}
-            poster={currentExercise.photo}
+            poster={currentExercise?.photo}
             ref={trainingVideo}
             autoPlay
             loop

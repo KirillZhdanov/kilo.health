@@ -3,7 +3,7 @@ import './App.css';
 import { useDispatch } from 'react-redux';
 import { fetchUsersWorkouts } from './redux/actions';
 import { Switch } from 'react-router';
-import { OverviewPage, ExercisePage } from './pages';
+import { OverviewPage, ExercisePage, CompletedExercisesPage } from './pages';
 import { ProtectedRouter } from './components';
 
 function App() {
@@ -17,6 +17,7 @@ function App() {
       <Switch>
         <ProtectedRouter exact path="/" component={OverviewPage} />
         <ProtectedRouter path="/exercise/:id" component={ExercisePage} />
+        <ProtectedRouter path="/completed" component={CompletedExercisesPage} />
       </Switch>
     </div>
   );

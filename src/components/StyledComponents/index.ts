@@ -15,6 +15,22 @@ const StartWorkoutButton = styled.a`
   position: fixed;
   bottom: 32px;
 `;
+const SaveAndContinueButton = styled.a`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 800px;
+  width: 80%;
+  height: 56px;
+  background: #aa00ff;
+  color: #fff;
+  border-radius: 8px;
+  text-align: center;
+  text-decoration: none;
+  position: fixed;
+  bottom: 50%;
+`;
+
 const GoBackButton = styled.a`
   display: block;
   margin-bottom: 20px;
@@ -124,6 +140,7 @@ const PlayerControlsContainer = styled.div`
 
 export {
   StartWorkoutButton,
+  SaveAndContinueButton,
   GoBackButton,
   OverviewPageWrapper,
   OverviewPageContainer,
