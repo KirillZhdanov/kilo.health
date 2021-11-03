@@ -9,6 +9,7 @@ import {
   PlayerControlPanel,
   PlayerControlsContainer,
   PlayerVideo,
+  PlayerVideoContainer,
   PlayerButton,
   PlayerButtonIcon,
 } from '../../components/StyledComponents';
@@ -17,21 +18,26 @@ import pauseIcon from '../../assets/pauseIcon.svg';
 import playIcon from '../../assets/playIcon.svg';
 import arrowPrev from '../../assets/arrowPrev.svg';
 import arrowNext from '../../assets/arrowNext.svg';
-import { Exercise as ExerciseType, Workout } from '../../models';
+import Spinner from './../../assets/Spinner.gif';
+import { Workout } from '../../models';
 import { RootState } from '../../redux/store';
 import { getWorkouts } from '../../redux/selectors';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useTraining } from '../../components';
 
 export const Exercise = () => {
   const trainingVideo = React.useRef<HTMLVideoElement>(null);
-  const { loaded, questions } = useSelector<RootState>(getWorkouts) as Workout;
-  const exercises = questions.map(({ exercises }) => exercises).flat() as ExerciseType[];
+  const { loaded, exercises } = useSelector<RootState>(getWorkouts) as Workout;
+
   const { currentExerciseIndex, changeCurrentExercise, duration, setIsPaused, isPaused } = useTraining({ exercises });
   const currentExercise = exercises[currentExerciseIndex];
+  const [isSuspended, setIsSuspended] = React.useState(false);
+  const [isErrorOnLoad, setIsErrorOnLoad] = React.useState(false);
 
+  const history = useHistory();
   const pauseTraining = () => {
+    if (isSuspended) return;
     setIsPaused(!isPaused);
     isPaused ? trainingVideo.current?.play() : trainingVideo.current?.pause();
   };
@@ -41,6 +47,28 @@ export const Exercise = () => {
   const nextExercise = () => {
     changeCurrentExercise(currentExerciseIndex + 1);
   };
+  React.useEffect(() => {
+    history.replace(`/exercise/${currentExercise.id}`);
+  }, [currentExercise, history]);
+
+  const suspendHandler = React.useCallback(
+    (suspend: boolean) => {
+      if (isErrorOnLoad) {
+        setIsSuspended(false);
+        setIsPaused(false);
+        return;
+      }
+      setIsSuspended(suspend);
+      setIsPaused(suspend);
+    },
+    [setIsPaused, isErrorOnLoad],
+  );
+  React.useEffect(() => {
+    if (isErrorOnLoad) {
+      setIsSuspended(false);
+      setIsPaused(false);
+    }
+  }, [isErrorOnLoad, setIsPaused]);
 
   if (!loaded) {
     return <Loading />;
@@ -66,7 +94,7 @@ export const Exercise = () => {
           <ProgressBar
             size={110}
             value={duration}
-            percentage={(duration / currentExercise.duration) * 100}
+            percentage={(duration / currentExercise?.duration) * 100}
             lineWidth={8}
             color="#FF4081"
           />
@@ -78,10 +106,24 @@ export const Exercise = () => {
             <div></div>
           )}
         </PlayerControlsContainer>
-        <PlayerVideo src={currentExercise.video} autoPlay={true} loop={true} ref={trainingVideo} />
+        <PlayerVideoContainer loaderImageUrl={Spinner}>
+          <PlayerVideo
+            src={currentExercise?.video}
+            poster={currentExercise.photo}
+            ref={trainingVideo}
+            autoPlay
+            loop
+            onError={(error) => {
+              setIsErrorOnLoad(!!error);
+            }}
+            onLoadStart={(loading) => suspendHandler(!!loading)}
+            onSuspend={(suspend) => suspendHandler(!suspend)}
+            style={{ opacity: isSuspended ? '0.5' : '1' }}
+          />
+        </PlayerVideoContainer>
       </ExercisePageContainer>
       <PlayerControlPanel>
-        <img onClick={pauseTraining} alt="pause training" src={isPaused ? playIcon : pauseIcon} />
+        <img onClick={pauseTraining} alt="pause training" src={isPaused ? playIcon : pauseIcon} width="54" />
       </PlayerControlPanel>
     </OverviewPageWrapper>
   );

@@ -1,5 +1,7 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Exercise } from '../../models';
+import { setExerciseCompleted } from '../../redux/actions';
 
 interface TrainingExercises {
   exercises: Exercise[];
@@ -16,13 +18,15 @@ export const useTraining = ({ exercises }: TrainingExercises): CurrentExercise =
   const [currentExerciseIndex, setCurrentExerciseIndex] = React.useState(0);
   const [isPaused, setIsPaused] = React.useState(false);
   const [secondsLeft, setSecondsLeft] = React.useState(exercises[currentExerciseIndex]?.duration);
+  const dispatch = useDispatch();
 
   const reduceCounterValue = React.useCallback(() => {
     setSecondsLeft(secondsLeft - 1);
   }, [secondsLeft]);
   const changeCurrentExercise = (index: number) => {
+    setSecondsLeft(exercises[index]?.duration);
     setCurrentExerciseIndex(index);
-    setSecondsLeft(exercises[currentExerciseIndex]?.duration);
+    setIsPaused(false);
   };
   React.useEffect(() => {
     const timeout = setTimeout(() => {
@@ -30,6 +34,7 @@ export const useTraining = ({ exercises }: TrainingExercises): CurrentExercise =
         return;
       }
       if (secondsLeft === 0) {
+        dispatch(setExerciseCompleted(exercises[currentExerciseIndex]));
         setCurrentExerciseIndex(currentExerciseIndex + 1);
         setSecondsLeft(exercises[currentExerciseIndex + 1].duration);
         return;
@@ -37,7 +42,7 @@ export const useTraining = ({ exercises }: TrainingExercises): CurrentExercise =
       reduceCounterValue();
     }, 1000);
     return () => clearTimeout(timeout);
-  }, [secondsLeft, isPaused, currentExerciseIndex, exercises, reduceCounterValue]);
+  }, [secondsLeft, isPaused, currentExerciseIndex, exercises, reduceCounterValue, dispatch]);
 
   return {
     currentExerciseIndex,

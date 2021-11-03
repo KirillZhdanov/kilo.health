@@ -4,6 +4,11 @@ export interface Workout {
   questions: Question[];
   loaded: boolean;
   error: string | null;
+  completedExercisesIds: Completed;
+  exercises: Exercise[];
+}
+interface Completed {
+  [key: number]: number;
 }
 interface Question {
   title: string;
@@ -17,9 +22,13 @@ export interface Exercise {
   video: string;
   photo: string;
   description: string;
-  completed?: boolean;
 }
 interface MuscleGroup {
   name: string;
   photo: string;
+}
+export interface ProtectedRoute {
+  exact?: boolean;
+  path: string;
+  component: () => JSX.Element;
 }

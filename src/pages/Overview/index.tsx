@@ -1,4 +1,3 @@
-import React from 'react';
 import { useSelector } from 'react-redux';
 import { Workout } from '../../models';
 import { RootState } from '../../redux/store';
@@ -24,10 +23,12 @@ import backIcon from '../../assets/backIcon.svg';
 import overviewImage from '../../assets/overviewImage.png';
 
 export const Overview = () => {
-  const { loaded, error, name, questions } = useSelector<RootState>(getWorkouts) as Workout;
+  const { loaded, error, name, questions, completedExercisesIds } = useSelector<RootState>(getWorkouts) as Workout;
   if (!loaded && !error) {
     return <Loading />;
   }
+  const completedExerciseClassName = (id: number) =>
+    completedExercisesIds.hasOwnProperty(id) ? 'completed-exercise' : '';
   return (
     <OverviewPageWrapper>
       <OverviewPageContainer>
@@ -43,9 +44,11 @@ export const Overview = () => {
             <OverviewTrainingExerciseTitle>{title}</OverviewTrainingExerciseTitle>
             {exercises.map(({ id, title, photo, description }) => (
               <OverviewTrainingExercise key={id}>
-                <OverviewTrainingImage alt={title} src={photo} />
+                <OverviewTrainingImage className={completedExerciseClassName(id)} alt={title} src={photo} />
                 <OverviewTrainingDescription>
-                  <OverviewTrainingDescriptionTitle>{title}</OverviewTrainingDescriptionTitle>
+                  <OverviewTrainingDescriptionTitle className={completedExerciseClassName(id)}>
+                    {title}
+                  </OverviewTrainingDescriptionTitle>
                   <OverviewSecondaryText>{description}</OverviewSecondaryText>
                 </OverviewTrainingDescription>
               </OverviewTrainingExercise>

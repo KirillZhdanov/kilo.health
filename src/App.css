@@ -20,3 +20,7 @@
   font-size: 3em;
   font-weight: bold;
 }
+.completed-exercise{
+  filter: grayscale(1);
+  text-decoration: line-through;
+}

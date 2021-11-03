@@ -2,8 +2,9 @@ import React from 'react';
 import './App.css';
 import { useDispatch } from 'react-redux';
 import { fetchUsersWorkouts } from './redux/actions';
-import { Route, Switch } from 'react-router';
+import { Switch } from 'react-router';
 import { OverviewPage, ExercisePage } from './pages';
+import { ProtectedRouter } from './components';
 
 function App() {
   const dispatch = useDispatch();
@@ -14,8 +15,8 @@ function App() {
   return (
     <div className="App">
       <Switch>
-        <Route exact path="/" component={OverviewPage} />
-        <Route path="/exercise/:id" component={ExercisePage} />
+        <ProtectedRouter exact path="/" component={OverviewPage} />
+        <ProtectedRouter path="/exercise/:id" component={ExercisePage} />
       </Switch>
     </div>
   );

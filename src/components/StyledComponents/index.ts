@@ -18,6 +18,7 @@ const StartWorkoutButton = styled.a`
 const GoBackButton = styled.a`
   display: block;
   margin-bottom: 20px;
+  cursor: pointer;
 `;
 const OverviewPageWrapper = styled.div`
   display: flex;
@@ -67,10 +68,13 @@ const OverviewTrainingDescriptionTitle = styled.p`
 `;
 const PlayerControlPanel = styled.div`
   display: flex;
+  position: fixed;
   width: 100%;
   height: 80px;
   justify-content: center;
+  background-color: #fff;
   border-top: 8px solid #eeeeee;
+  bottom: 0;
 `;
 const PlayerButton = styled.div`
   display: flex;
@@ -80,14 +84,22 @@ const PlayerButton = styled.div`
   border: 2px solid #aa00ff;
   box-sizing: border-box;
   border-radius: 8px;
+  cursor: pointer;
 `;
 const PlayerButtonIcon = styled.img`
   width: 12px;
+  cursor: pointer;
 `;
 const PlayerVideo = styled.video`
   width: 100%;
   max-height: 565px;
   margin-top: 20px;
+  background-size: 100% 100%;
+`;
+const PlayerVideoContainer = styled.div<{ loaderImageUrl?: string }>`
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url(${(props) => props.loaderImageUrl});
 `;
 const ExerciseTitle = styled.p`
   font-weight: 600;
@@ -102,6 +114,7 @@ const BackButtonContainer = styled.div`
   width: 100%;
   text-align: left;
   margin-left: 10px;
+  cursor: pointer;
 `;
 const PlayerControlsContainer = styled.div`
   display: flex;
@@ -127,6 +140,7 @@ export {
   ExercisePageContainer,
   PlayerControlPanel,
   PlayerVideo,
+  PlayerVideoContainer,
   PlayerButtonIcon,
   PlayerButton,
   PlayerControlsContainer,
