@@ -40,7 +40,7 @@ const OverviewPageWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 64px 0 10px;
+  margin: 64px 10px 10px;
   position: relative;
   text-align: left;
 `;
