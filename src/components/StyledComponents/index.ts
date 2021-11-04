@@ -5,7 +5,7 @@ const StartWorkoutButton = styled.a`
   justify-content: center;
   align-items: center;
   max-width: 800px;
-  width: 100%;
+  width: calc(100% - 20px);
   height: 56px;
   background: #aa00ff;
   color: #fff;
@@ -40,7 +40,7 @@ const OverviewPageWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 64px 0 10px;
+  margin: 64px 10px 10px;
   position: relative;
   text-align: left;
 `;
